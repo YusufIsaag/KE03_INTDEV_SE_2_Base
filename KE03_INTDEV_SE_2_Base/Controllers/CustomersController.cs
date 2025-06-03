@@ -40,7 +40,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
                 return NotFound();
             }
 
-            return View(customer);
+            return PartialView(customer);
         }
 
         // GET: Customers/Create
