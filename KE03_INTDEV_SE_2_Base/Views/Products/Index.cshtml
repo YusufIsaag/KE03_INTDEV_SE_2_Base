@@ -3,11 +3,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>All products</h1>
 
-<button class="btn btn-primary">
-    <a class="text-white" asp-action="Create">Create New</a>
-</button>
+<div class="d-flex justify-content-end mb-3" style="padding-right:35px;">
+    <a class="btn btn-success text-white" asp-action="Create">Create New</a>
+</div>
+
     <table class="table">
         <thead>
             <tr>
@@ -20,22 +21,34 @@
                 <th>
                     @Html.DisplayNameFor(Model => Model.Price)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Visible)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Image)
+                </th>
             </tr>
         </thead>
         <tbody>
 @foreach (var item in Model){
           <tr>
               <td>
-                    @Html.DisplayFor(Modeltem => item.Name)
+                    @Html.DisplayFor(modeltem => item.Name)
               </td>
               <td>
-                    @Html.DisplayFor(Modelitem => item.Description)
+                    @Html.DisplayFor(modelitem => item.Description)
               </td>
               <td>
-                    @Html.DisplayFor(Modelitem => item.Price)
+                    @Html.DisplayFor(modelitem => item.Price)
+              </td>
+              <td>
+                    @Html.DisplayFor(modelitem => item.Visible)
               </td>
                 <td>
-                    <button class="btn btn-secondary">
+                    <img src="@item.Image" alt="Product Image" style="width: 100px; height: auto;" />
+                </td>
+                <td>
+                    <button class="btn btn-primary">
                         <a class="text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     </button>
                     <button class="btn btn-secondary">

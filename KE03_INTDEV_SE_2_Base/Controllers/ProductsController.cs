@@ -43,43 +43,78 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
         // POST: ProductsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create([Bind("Id,Name,Description,Price,Image,Visible")]Product product)
         {
-            try
+            if(ModelState.IsValid)
             {
+             _context.Products.Add(product);
+             _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+                return View(product);
         }
 
         // GET: ProductsController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var product = _context.Products
+                .FirstOrDefault(product => product.Id == id);
+            
+            if(product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         // POST: ProductsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int Id, string Name, string Description, decimal Price, string Image, bool Visible)
         {
-            try
+            if(ModelState.IsValid)
             {
+                var product = _context.Products
+                    .FirstOrDefault(product => product.Id == Id);
+                
+                if(product != null)
+                {
+                    product.Name = Name;
+                    product.Description = Description;
+                    product.Price = Price;
+                    product.Image = Image;
+                    product.Visible = Visible;
+                    _context.Products.Update(product);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+
+                }
+            }
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: ProductsController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var product = _context.Products
+                .FirstOrDefault(product => product.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         // POST: ProductsController/Delete/5
@@ -87,14 +122,14 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
+            var product = _context.Products
+                .FirstOrDefault(product => product.Id == id);
+            if (product != null)
             {
-                return RedirectToAction(nameof(Index));
+                _context.Products.Remove(product);
             }
-            catch
-            {
-                return View();
-            }
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
