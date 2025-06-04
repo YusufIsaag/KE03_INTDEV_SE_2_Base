@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DataAccessLayer.Models.Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All products</h1>
+
+<div class="d-flex justify-content-end mb-3" style="padding-right:35px;">
+    <a class="btn btn-success text-white" asp-action="Create">Create New</a>
+</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Visible)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Image)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+@foreach (var item in Model){
+          <tr>
+              <td>
+                    @Html.DisplayFor(modeltem => item.Name)
+              </td>
+              <td>
+                    @Html.DisplayFor(modelitem => item.Description)
+              </td>
+              <td>
+                    @Html.DisplayFor(modelitem => item.Price)
+              </td>
+              <td>
+                    @Html.DisplayFor(modelitem => item.Visible)
+              </td>
+                <td>
+                    <img src="@item.Image" alt="Product Image" style="width: 100px; height: auto;" />
+                </td>
+                <td>
+                    <button class="btn btn-primary">
+                        <a class="text-white" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    </button>
+                    <button class="btn btn-secondary">
+                        <a class="text-white" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    </button>
+                    <button class="btn btn-danger">
+                        <a class="text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

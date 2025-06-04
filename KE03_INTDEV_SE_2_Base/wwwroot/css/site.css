@@ -20,3 +20,6 @@ html {
 body {
   margin-bottom: 60px;
 }
+.navbar-brand {
+    font-size: var(--bs-navbar-brand-font-size) !important;
+}

@@ -1,0 +1,38 @@
+﻿@model DataAccessLayer.Models.Product   
+@{
+    ViewData["Title"] = "Details";
+}
+<h1>Details</h1>  
+<h4>Product</h4>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Property
+            </th>
+            <th>
+                value
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <td>@Html.DisplayFor(model => model.Description)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <td>@Html.DisplayFor(model => model.Price)</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td><img src="@Model.Image" alt="Productfoto" style="width: 150px; height: auto;" /></td>
+        </tr>
+    </tbody>
+</table>
