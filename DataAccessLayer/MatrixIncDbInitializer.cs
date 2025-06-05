@@ -26,9 +26,16 @@ namespace DataAccessLayer
             // - Denk aan namen van vliegtuigen            
             var customers = new Customer[]
             {
-                new Customer { Name = "Neo", Address = "123 Elm St" , Active=true},
-                new Customer { Name = "Morpheus", Address = "456 Oak St", Active = true },
-                new Customer { Name = "Trinity", Address = "789 Pine St", Active = true }
+                new Customer { Name = "Max Payne", Address = "112 Bullet Blvd", Active = true, Photo = "/uploads/max.jpg" },
+                new Customer { Name = "Gordon Freeman", Address = "42 Lambda Complex", Active = true, Photo = "/uploads/gordon.jpg" },
+                new Customer { Name = "Jill Valentine", Address = "Raccoon City", Active = false, Photo = "/uploads/jill.jpg" },
+                new Customer { Name = "Sarah Connor", Address = "321 Maple Ave", Active = true, Photo = "/uploads/sarah.jpg" },
+                new Customer { Name = "Ellen Ripley", Address = "654 Birch Blvd", Active = false, Photo = "/uploads/ripley.jpg" },
+                new Customer { Name = "John Wick", Address = "987 Cedar Lane", Active = true, Photo = "/uploads/wick.jpg" },
+                new Customer { Name = "Lara Croft", Address = "159 Temple Road", Active = true, Photo = "/uploads/lara.jpg" },
+                new Customer { Name = "Tony Stark", Address = "10880 Malibu Point", Active = true, Photo = "/uploads/stark.jpg" },
+                new Customer { Name = "Bruce Wayne", Address = "1007 Mountain Drive", Active = false, Photo = "/uploads/bruce.jpg" },
+                new Customer { Name = "Itachi Uchiha", Address = "Themyscira Island", Active = true, Photo = "/uploads/diana.jpg" }
             };
             context.Customers.AddRange(customers);
 
