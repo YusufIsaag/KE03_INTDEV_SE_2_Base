@@ -21,6 +21,8 @@ namespace DataAccessLayer.Models
 
         public bool Active { get; set; }
 
+        public string? Photo { get; set; }
+
         public ICollection<Order> Orders { get; } = new List<Order>();
     }
 }
