@@ -65,17 +65,16 @@ namespace DataAccessLayer
 
 
             var parts = new Part[]
-            {
-                new Part { Name = "Tandwiel", Description = "Overdracht van rotatie in bijvoorbeeld de motor of luikmechanismen"},
-                new Part { Name = "M5 Boutje", Description = "Bevestiging van panelen, buizen of interne modules"},
-                new Part { Name = "Hydraulische cilinder", Description = "Openen/sluiten van zware luchtsluizen of bewegende onderdelen"},
-                new Part { Name = "Koelvloeistofpomp", Description = "Koeling van de motor of elektronische systemen."}
-            };
-            context.Parts.AddRange(parts);
-
+             {
+                new Part { Name = "Tandwiel", Description = "Overdracht van rotatie in bijvoorbeeld de motor of luikmechanismen", Stock = 12, BuyInPrice = 15.50m, Image = "default.jpg" },
+                new Part { Name = "M5 Boutje", Description = "Bevestiging van panelen, buizen of interne modules", Stock = 250, BuyInPrice = 0.05m, Image = "default.jpg" },
+                new Part { Name = "Hydraulische cilinder", Description = "Openen/sluiten van zware luchtsluizen of bewegende onderdelen", Stock = 5, BuyInPrice = 89.90m, Image = "default.jpg" },
+                new Part { Name = "Koelvloeistofpomp", Description = "Koeling van de motor of elektronische systemen.", Stock = 7, BuyInPrice = 49.95m, Image = "default.jpg" }
+             };
             context.SaveChanges();
 
-            
+
+
         }
     }
 }
