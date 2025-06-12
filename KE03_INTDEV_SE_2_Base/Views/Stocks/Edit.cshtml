@@ -60,7 +60,7 @@
         form.addEventListener("submit", function (e) {
             const amount = parseInt(amountInput.value) || 0;
             if (amount > 50) {
-                const confirmed = confirm(`You're about to order ${amount} of this product.\nAre you certain you're not accidentally a cat walking over the keyboard?`);
+                const confirmed = confirm(`You're about to order ${amount} of this product.`);
                 if (!confirmed) {
                     e.preventDefault();
                 }
