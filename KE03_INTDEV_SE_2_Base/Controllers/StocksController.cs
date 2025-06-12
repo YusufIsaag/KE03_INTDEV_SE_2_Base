@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer;
-using Microsoft.AspNetCore.Http;
+using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace KE03_INTDEV_SE_2_Base.Controllers
 {
@@ -12,6 +13,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
         {
             _context = context;
         }
+
         // GET: StocksController
         public ActionResult Index()
         {
@@ -19,74 +21,90 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             return View(allStocks);
         }
 
-        // GET: StocksController/Details/5
-        public ActionResult Details(int id)
+        // GET: StocksController/Edit/5 (Order Stock)
+        public ActionResult Edit(int id)
         {
-            return View();
+            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
+            if (part == null)
+            {
+                return NotFound();
+            }
+
+            return View(part); // Zorgt dat je @model in de View niet null is
         }
 
-        // GET: StocksController/Create
+        // POST: StocksController/Edit/5 (Order Stock)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, int amountToAdd)
+        {
+            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
+            if (part == null)
+            {
+                return NotFound();
+            }
+
+            part.Stock += amountToAdd;
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Andere acties (optioneel)
+        public ActionResult Details(int id)
+        {
+            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
+            if (part == null)
+            {
+                return NotFound();
+            }
+
+            return View(part);
+        }
+
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: StocksController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Part newPart)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _context.Parts.Add(newPart);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(newPart);
         }
 
-        // GET: StocksController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            var allStocks = _context.Parts.ToList();
-            return View(allStocks);
-        }
-
-        // POST: StocksController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: StocksController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
+            if (part == null)
+            {
+                return NotFound();
+            }
+
+            return View(part);
         }
 
-        // POST: StocksController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
+            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
+            if (part != null)
             {
-                return RedirectToAction(nameof(Index));
+                _context.Parts.Remove(part);
+                _context.SaveChanges();
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
+
