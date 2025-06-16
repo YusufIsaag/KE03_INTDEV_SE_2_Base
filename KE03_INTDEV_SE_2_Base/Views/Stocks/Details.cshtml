@@ -1,0 +1,24 @@
+﻿@model DataAccessLayer.Models.Part
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="row g-0">
+            >
+            <div class="col-md-7">
+                <div class="card-body">
+                    <h3 class="card-title">@Model.Name</h3>
+                    <p class="text-muted">@Model.Description</p>
+                    <p><strong>Price:</strong> @Model.Price.ToString("C", new System.Globalization.CultureInfo("nl-NL")).Replace(",00", ",-")</p>
+                    <p><strong>Buy-in Price:</strong> @Model.BuyInPrice.ToString("C", new System.Globalization.CultureInfo("nl-NL")).Replace(",00", ",-")</p>
+                    <p><strong>Stock:</strong> @Model.Stock Pieces</p>
+
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Order</a>
+                    <a asp-action="Index" class="btn btn-secondary">Return</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
