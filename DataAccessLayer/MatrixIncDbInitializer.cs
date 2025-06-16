@@ -59,7 +59,9 @@ namespace DataAccessLayer
                 new Product { Name = "Trench Coat", Description = "Long black coat worn by Neo inside the Matrix.", Price = 89.90m, Image = "https://m.media-amazon.com/images/I/31zmgvuci8L._AC_.jpg", Visible = true },
                 new Product { Name = "Operator Headset", Description = "Headset used by operators to communicate with agents and rebels.", Price = 49.99m, Image = "https://nl.hama.com/bilder/00139/abx/00139938abx.webp", Visible = true },
                 new Product { Name = "Training Program Disc", Description = "Virtual training program uploaded directly into the brain.", Price = 29.99m, Image = "https://cdn.tc.promotron.com/web-images/79078a38-cb2d-47ad-a4a3-392033e050f5", Visible = true },
-                new Product { Name = "Dual Pistols", Description = "Guns used by Neo during the rescue mission.", Price = 2009.00m, Image = "https://blogmedia.wideners.com/blog/wp-content/uploads/WRS-Blog-Matrix-Guns-Template-Model-61-Skorpion.jpg", Visible = true }
+                new Product { Name = "Dual Pistols", Description = "Guns used by Neo during the rescue mission.", Price = 2009.00m, Image = "https://blogmedia.wideners.com/blog/wp-content/uploads/WRS-Blog-Matrix-Guns-Template-Model-61-Skorpion.jpg", Visible = true },
+                new Product { Name = "Blue Pill", Description = "The pill that lets you remain in the fabricated reality of the Matrix.", Price = 99.00m, Image = "https://t3.ftcdn.net/jpg/09/65/68/00/360_F_965680030_Zv7VTQujWWuQpWxajoiTgEk49SlkQtbl.jpg", Visible = true }
+
             };
             context.Products.AddRange(products);
 
