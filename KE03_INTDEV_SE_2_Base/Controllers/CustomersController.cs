@@ -80,6 +80,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             {
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
+                TempData["CreateNotification"] = customer.Name;
                 return RedirectToAction(nameof(Index));
             }
 
@@ -120,6 +121,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
                 {
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
+                    TempData["EditNotification"] = customer.Name;
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -165,7 +167,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             {
                 _context.Customers.Remove(customer);
             }
-
+            TempData["DeleteNotification"] = customer.Name;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

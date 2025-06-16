@@ -11,6 +11,27 @@
 
 </head>
 <body>
+    @if (TempData["DeleteNotification"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <strong>@TempData["DeleteNotification"]</strong> has been deleted.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["EditNotification"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <strong>@TempData["EditNotification"]</strong> was succesfully changed.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["CreateNotification"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <strong>@TempData["CreateNotification"]</strong> was succesfully created.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow">
             <div class="container-fluid justify-content-center">
@@ -23,17 +44,18 @@
             <h4><a style="text-decoration:none;" class="text-white" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Matrix Inc.</a></h4>
             <ul class="nav flex-column">
                 <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="Products" asp-action="Index">Products</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="Customers" asp-action="Index">Customers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                    <a class="nav-link text-white" asp-controller="Stocks" asp-action="Index">Customers</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
+                
             </ul>
             </div>
         <div class="flex-grow-1">
