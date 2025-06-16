@@ -1,0 +1,66 @@
+﻿@model DataAccessLayer.Models.Dashboard2
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="text-center my-4">
+    <h2>Dashboard</h2>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5 text-center">
+            <canvas id="productChart"></canvas>
+            <a href="/Products" class="btn btn-primary mt-3">View Products</a>
+        </div>
+
+        <div class="col-md-5 text-center">
+            <canvas id="customerChart"></canvas>
+            <a href="/Customers" class="btn btn-primary mt-3">View Customers</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const productChart = new Chart(document.getElementById('productChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Products'],
+                datasets: [{
+                    label: 'Total Products',
+                    data: [@Model.TotalProducts],
+                    backgroundColor: ['rgba(75, 192, 192, 0.6)'],
+                    borderColor: ['rgba(75, 192, 192, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        const customerChart = new Chart(document.getElementById('customerChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Customers'],
+                datasets: [{
+                    label: 'Total Customers',
+                    data: [@Model.TotalCustomers],
+                    backgroundColor: ['rgba(255, 159, 64, 0.6)'],
+                    borderColor: ['rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+}
