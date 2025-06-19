@@ -12,8 +12,10 @@
                     <h3 class="card-title">@Model.Name</h3>
                     <p class="text-muted">@Model.Description</p>
                     <p><strong>Price:</strong> @Model.Price.ToString("C", new System.Globalization.CultureInfo("nl-NL")).Replace(",00", ",-")</p>
-                    <p><strong>Buy-in Price:</strong> @Model.BuyInPrice.ToString("C", new System.Globalization.CultureInfo("nl-NL")).Replace(",00", ",-")</p>
-                    <p><strong>Stock:</strong> @Model.Stock Pieces</p>
+                    
+
+                    
+                    
 
                     <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Order</a>
                     <a asp-action="Index" class="btn btn-secondary">Return</a>

@@ -12,17 +12,17 @@
                 <input type="hidden" asp-for="Id" />
 
                 <div class="mb-3">
-                    <label class="form-label">Current Stock</label>
+                    <label class="form-label">Current Stock (Voorraad)</label>
                     <input type="text" class="form-control" value="@Model.Stock Pieces" disabled />
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Stock" class="form-label">Amount to order [additionally]</label>
+                    <label asp-for="Stock" class="form-label">Amount to order (hoeveel bestellen)</label>
                     <input type="number" class="form-control" name="amountToAdd" id="amountToAdd" min="1" required />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Total Price</label>
+                    <label class="form-label">Total Price (Totale prijs)</label>
                     <input type="text" id="totalPriceDisplay" class="form-control" disabled />
                 </div>
 
