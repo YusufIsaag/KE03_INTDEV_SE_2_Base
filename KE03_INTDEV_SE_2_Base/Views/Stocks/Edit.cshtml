@@ -1,4 +1,5 @@
-﻿@model DataAccessLayer.Models.Part
+﻿@model DataAccessLayer.Models.Product
+
 @{
     ViewData["Title"] = "OrderStock";
 }
@@ -8,7 +9,7 @@
         <div class="card-body">
             <h3 class="mb-4">Order Stock – @Model.Name</h3>
 
-            <form asp-action="Edit" data-buyinprice="@Model.BuyInPrice">
+            <form asp-action="Edit" method="post" data-buyinprice="@Model.Price">
                 <input type="hidden" asp-for="Id" />
 
                 <div class="mb-3">
@@ -40,7 +41,7 @@
         const totalPriceDisplay = document.getElementById("totalPriceDisplay");
         const submitBtn = document.getElementById("submitBtn");
 
-        const buyInPrice = parseFloat(@Model.BuyInPrice);
+        const buyInPrice = parseFloat("@Model.Price".replace(",", "."));
         const formatter = new Intl.NumberFormat('nl-NL', {
             style: 'currency',
             currency: 'EUR'
@@ -48,9 +49,7 @@
 
         function updateTotalPrice() {
             const amount = parseInt(amountInput.value) || 0;
-            
             const total = amount * buyInPrice;
-            console.log(amount, buyInPrice, total);
             totalPriceDisplay.value = formatter.format(total);
         }
 
@@ -60,7 +59,7 @@
         form.addEventListener("submit", function (e) {
             const amount = parseInt(amountInput.value) || 0;
             if (amount > 50) {
-                const confirmed = confirm(`You're about to order ${amount} of this product.\nAre you certain you're not accidentally a cat walking over the keyboard?`);
+                const confirmed = confirm(`You're about to order ${amount} of this product.`);
                 if (!confirmed) {
                     e.preventDefault();
                 }
@@ -68,3 +67,4 @@
         });
     </script>
 }
+
