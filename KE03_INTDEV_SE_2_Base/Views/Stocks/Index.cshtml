@@ -7,25 +7,7 @@
 
 
 <body>
-    <div class="container-fluid px-4 mt-4">
-        <h2 class="mb-4">Stockmanagement</h2>
-
-        <form method="get" asp-action="Index" class="mb-3">
-            <div class="row g-2 align-items-center">
-                <div class="col-auto">
-                    <label for="sortOrder" class="col-form-label">Sort Stock:</label>
-                </div>
-                <div class="col-auto">
-                    <select class="form-select" id="sortOrder" name="sortOrder" onchange="this.form.submit()">
-                        <option value="">-- Sort Option --</option>
-                        <option value="low-high" selected="@(currentSort == "low-high")">Low to High</option>
-                        <option value="high-low" selected="@(currentSort == "high-low")">High to Low</option>
-                        <option value="medium" selected="@(currentSort == "medium")">Medium Stock</option>
-                        <option value="none" selected="@(currentSort == "none")">No Stock</option>
-                    </select>
-                </div>
-            </div>
-        </form>
+ 
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach (var part in Model)
