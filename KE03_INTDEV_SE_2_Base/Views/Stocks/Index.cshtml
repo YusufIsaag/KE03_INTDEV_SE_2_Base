@@ -1,60 +1,38 @@
-﻿@model IEnumerable<DataAccessLayer.Models.Part>
+﻿@model IEnumerable<DataAccessLayer.Models.Product>
 @{
     ViewData["Title"] = "Stock";
     var currentSort = Context.Request.Query["sortOrder"];
 }
 
-
-
 <body>
-    <div class="container-fluid px-4 mt-4">
-        <h2 class="mb-4">Stockmanagement</h2>
-
-        <form method="get" asp-action="Index" class="mb-3">
-            <div class="row g-2 align-items-center">
-                <div class="col-auto">
-                    <label for="sortOrder" class="col-form-label">Sort Stock:</label>
-                </div>
-                <div class="col-auto">
-                    <select class="form-select" id="sortOrder" name="sortOrder" onchange="this.form.submit()">
-                        <option value="">-- Sort Option --</option>
-                        <option value="low-high" selected="@(currentSort == "low-high")">Low to High</option>
-                        <option value="high-low" selected="@(currentSort == "high-low")">High to Low</option>
-                        <option value="medium" selected="@(currentSort == "medium")">Medium Stock</option>
-                        <option value="none" selected="@(currentSort == "none")">No Stock</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            @foreach (var part in Model)
-            {
-                <div class="col">
-                    <div class="card shadow-sm h-100 border-0 rounded-4" style="background-color: #fff;">
-                        <img src="@part.Image" class="card-img-top rounded-top-4" alt="photo of [a] @part.Name" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">@part.Name</h5>
-                            <p class="card-text text-muted small">@part.Description</p>
-                            <p class="mb-1">
-                                <strong>Price:</strong>
-                                @part.Price.ToString("C", new System.Globalization.CultureInfo("nl-NL")).Replace(",00", ",-")
-                            </p>
-                            <p class="mb-0">
-                                <strong>Stock:</strong>
-                                <span class="badge @((part.Stock == 0) ? "bg-danger" : (part.Stock < 10) ? "bg-warning text-dark" : "bg-success")">
-                                    @part.Stock Pieces
-                                </span>
-                            </p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
-                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@part.Id"><i class="bi bi-pencil-square"></i> Order</a>
-                            <a class="btn btn-info text-white" asp-action="Details" asp-route-id="@part.Id"><i class="bi bi-info-circle"></i> Details</a>
-                        </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var product in Model)
+        {
+            <div class="col">
+                <div class="card shadow-sm h-100 border-0 rounded-4" style="background-color: #fff;">
+                    <img src="@product.Image" class="card-img-top rounded-top-4" alt="photo of [a] @product.Name" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text text-muted small">@product.Description</p>
+                        <p class="mb-1">
+                            <strong>Price:</strong>
+                            @product.Price.ToString("C", new System.Globalization.CultureInfo("nl-NL")).Replace(",00", ",-")
+                        </p>
+                        <p class="mb-0">
+                            <strong>Stock:</strong>
+                            <span class="badge @((product.Stock == 0) ? "bg-danger" : (product.Stock < 10) ? "bg-warning text-dark" : "bg-success")">
+                                @product.Stock Pieces
+                            </span>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@product.Id"><i class="bi bi-pencil-square"></i> Order</a>
+                        <a class="btn btn-info text-white" asp-action="Details" asp-route-id="@product.Id"><i class="bi bi-info-circle"></i> Details</a>
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
 </body>
+
 

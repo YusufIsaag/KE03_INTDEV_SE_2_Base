@@ -14,52 +14,50 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             _context = context;
         }
 
-        // GET: StocksController
         public ActionResult Index()
         {
-            var allStocks = _context.Parts.ToList();
+            var allStocks = _context.Products.ToList();
             return View(allStocks);
         }
 
-        // GET: StocksController/Edit/5 (Order Stock)
+        // GET: StocksController/Edit/5
         public ActionResult Edit(int id)
         {
-            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
-            if (part == null)
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(part); // Zorgt dat je @model in de View niet null is
+            return View(product);
         }
 
-        // POST: StocksController/Edit/5 (Order Stock)
+        // POST: StocksController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, int amountToAdd)
         {
-            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
-            if (part == null)
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            part.Stock += amountToAdd;
+            product.Stock += amountToAdd; // ✅ Belangrijk: update de voorraad
             _context.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }
 
-        // Andere acties (optioneel)
         public ActionResult Details(int id)
         {
-            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
-            if (part == null)
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(part);
+            return View(product);
         }
 
         public ActionResult Create()
@@ -69,37 +67,37 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Part newPart)
+        public ActionResult Create(Product newProduct)
         {
             if (ModelState.IsValid)
             {
-                _context.Parts.Add(newPart);
+                _context.Products.Add(newProduct);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(newPart);
+            return View(newProduct);
         }
 
         public ActionResult Delete(int id)
         {
-            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
-            if (part == null)
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(part);
+            return View(product);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var part = _context.Parts.FirstOrDefault(p => p.Id == id);
-            if (part != null)
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            if (product != null)
             {
-                _context.Parts.Remove(part);
+                _context.Products.Remove(product);
                 _context.SaveChanges();
             }
 
@@ -107,4 +105,6 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
         }
     }
 }
+
+
 
