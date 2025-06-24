@@ -49,6 +49,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             {
              _context.Products.Add(product);
              _context.SaveChanges();
+             TempData["CreateNotification"] = product.Name;
                 return RedirectToAction(nameof(Index));
             }
                 return View(product);
@@ -91,6 +92,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
                     product.Visible = Visible;
                     _context.Products.Update(product);
                     _context.SaveChanges();
+                    TempData["EditNotification"] = product.Name;
                 }
                 else
                 {
@@ -127,8 +129,9 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             if (product != null)
             {
                 _context.Products.Remove(product);
+                _context.SaveChanges();
+                TempData["DeleteNotification"] = product.Name; 
             }
-            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
     }

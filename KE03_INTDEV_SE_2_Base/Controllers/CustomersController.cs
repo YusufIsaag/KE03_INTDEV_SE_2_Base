@@ -49,6 +49,42 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             return View();
         }
 
+        // POST: Customers/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Customer customer, IFormFile PhotoFile)
+        {
+            if (PhotoFile != null && PhotoFile.Length > 0)
+            {
+                var fileName = Path.GetFileName(PhotoFile.FileName);
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await PhotoFile.CopyToAsync(stream);
+                }
+
+                customer.Photo = "/uploads/" + fileName;
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(customer);
+        }
 
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -119,8 +155,6 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
                     // Update het klantobject
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
-
-                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -165,7 +199,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             {
                 _context.Customers.Remove(customer);
             }
-
+            TempData["DeleteNotification"] = customer.Name;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
