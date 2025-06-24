@@ -16,8 +16,24 @@
         <dt class="col-sm-2">Adres</dt>
         <dd class="col-sm-10">@Model.Address</dd>
 
-        <dt class="col-sm-2">Actief</dt>
-        <dd class="col-sm-10">@(Model.Active ? "Ja" : "Nee")</dd>
+        <dt class="col-sm-2">Status</dt>
+        <dd class="col-sm-10">
+            @if (Model.Active)
+            {
+                <span style="display: inline-flex; align-items: center;">
+                    <span style="width: 10px; height: 10px; background-color: green; border-radius: 50%; display: inline-block; margin-right: 5px;"></span>
+                    Online
+                </span>
+            }
+            else
+            {
+                <span style="display: inline-flex; align-items: center;">
+                    <span style="width: 10px; height: 10px; background-color: red; border-radius: 50%; display: inline-block; margin-right: 5px;"></span>
+                    Offline
+                </span>
+            }
+        </dd>
+
 
         @if (!string.IsNullOrEmpty(Model.Photo))
         {

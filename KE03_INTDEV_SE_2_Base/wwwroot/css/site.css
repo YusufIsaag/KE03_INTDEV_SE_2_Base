@@ -25,3 +25,24 @@ body {
 .navbar-brand {
     font-size: var(--bs-navbar-brand-font-size) !important;
 }
+
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+    .status-dot.online {
+        background-color: green;
+    }
+
+    .status-dot.offline {
+        background-color: red;
+    }
