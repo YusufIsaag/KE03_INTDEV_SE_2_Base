@@ -49,42 +49,6 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             return View();
         }
 
-        // POST: Customers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Customer customer, IFormFile PhotoFile)
-        {
-            if (PhotoFile != null && PhotoFile.Length > 0)
-            {
-                var fileName = Path.GetFileName(PhotoFile.FileName);
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                var filePath = Path.Combine(uploadsFolder, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await PhotoFile.CopyToAsync(stream);
-                }
-
-                customer.Photo = "/uploads/" + fileName;
-            }
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(customer);
-        }
 
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -107,7 +71,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address,Active")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address,Active")] Customer customer, IFormFile PhotoFile)
         {
             if (id != customer.Id)
             {
@@ -118,8 +82,45 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             {
                 try
                 {
+                    // Oude klant ophalen (zonder tracking)
+                    var customerFromDb = await _context.Customers.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+
+                    if (customerFromDb == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Als er een nieuwe foto is, upload en update het pad
+                    if (PhotoFile != null && PhotoFile.Length > 0)
+                    {
+                        var fileName = Path.GetFileName(PhotoFile.FileName);
+                        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+                        if (!Directory.Exists(uploadsFolder))
+                        {
+                            Directory.CreateDirectory(uploadsFolder);
+                        }
+
+                        var filePath = Path.Combine(uploadsFolder, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await PhotoFile.CopyToAsync(stream);
+                        }
+
+                        customer.Photo = "/uploads/" + fileName;
+                    }
+                    else
+                    {
+                        // Geen nieuwe foto, dus oude foto behouden
+                        customer.Photo = customerFromDb.Photo;
+                    }
+
+                    // Update het klantobject
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -132,7 +133,6 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(customer);
         }
@@ -174,5 +174,40 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
         {
             return _context.Customers.Any(e => e.Id == id);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Customer customer, IFormFile PhotoFile)
+        {
+            if (PhotoFile != null && PhotoFile.Length > 0)
+            {
+                var fileName = Path.GetFileName(PhotoFile.FileName);
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await PhotoFile.CopyToAsync(stream);
+                }
+
+                customer.Photo = "/uploads/" + fileName;
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(customer);
+        }
+
     }
 }
