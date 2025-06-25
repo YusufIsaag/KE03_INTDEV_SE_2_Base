@@ -1,23 +1,30 @@
 ﻿@model IEnumerable<DataAccessLayer.Models.Customer>
 
 @{
-    ViewData["Title"] = "Klanten";
+    ViewData["Title"] = "Customers";
 }
 
-<h1>Klanten</h1>
+<h1>Customers</h1>
+
+<form method="get" asp-action="Index" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchString" value="@Context.Request.Query["searchString"]" class="form-control" placeholder="Search by name..." />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Nieuwe klant toevoegen</a>
+    <a asp-action="Create" class="btn btn-success">Add New Customer</a>
 </p>
 
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
         <tr>
-            <th>Naam</th>
-            <th>Adres</th>
-            <th>Actief</th>
-            <th>Foto</th>
-            <th>Acties</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Active</th>
+            <th>Picture</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -35,8 +42,8 @@
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Bewerken</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Verwijderen</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         }
