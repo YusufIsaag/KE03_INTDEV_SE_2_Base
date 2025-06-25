@@ -18,6 +18,9 @@ namespace DataAccessLayer.Models
         public decimal Price { get; set; }
         public string Image { get; set; }
         public bool Visible { get; set; }
+        public int Stock { get; set; }
+
+
 
         public ICollection<Order> Orders { get; } = new List<Order>();
 

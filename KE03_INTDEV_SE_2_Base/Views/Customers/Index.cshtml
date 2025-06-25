@@ -33,7 +33,13 @@
             <tr>
                 <td>@item.Name</td>
                 <td>@item.Address</td>
-                <td>@(item.Active ? "Ja" : "Nee")</td>
+                <td>
+                    <span class="status-indicator">
+                        <span class="status-dot @(item.Active ? "online" : "offline")"></span>
+                        @(item.Active ? "Online" : "Offline")
+                    </span>
+                </td>
+
                 <td>
                     @if (!string.IsNullOrEmpty(item.Photo))
                     {

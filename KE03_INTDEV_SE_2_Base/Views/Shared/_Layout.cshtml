@@ -7,27 +7,44 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/KE03_INTDEV_SE_2_Base.styles.css" asp-append-version="true" />
+    <link rel="icon" type="image/x-icon" href="~/fav.jpg" />
+
 </head>
 <body>
+    @if (TempData["DeleteNotification"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <strong>@TempData["DeleteNotification"]</strong> has been deleted.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["EditNotification"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <strong>@TempData["EditNotification"]</strong> was succesfully changed.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["CreateNotification"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <strong>@TempData["CreateNotification"]</strong> was succesfully created.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow">
             <div class="container-fluid justify-content-center">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Matrix Inc.</a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
+                <h3><a style="text-decoration:none;" class="text-white" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Matrix Inc.</a></h3>                
             </div>
         </nav>
     </header>
     <div class="d-flex">
         <div class="bg-primary text-white p-3" style="width: 220px; min-height: 100vh;">
-            <h4>Matrix Inc.</h4>
+            <h4><a style="text-decoration:none;" class="text-white" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Matrix Inc.</a></h4>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Dashboard</a>
+                    <a class="nav-link text-white" asp-controller="Dashboard2" asp-action="Index">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="Products" asp-action="Index">Products</a>
@@ -36,18 +53,20 @@
                     <a class="nav-link text-white" asp-controller="Customers" asp-action="Index">Customers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <a class="nav-link text-white" asp-controller="Stocks" asp-action="Index">Stocks</a>
                 </li>
+                
             </ul>
+            </div>
+        <div class="flex-grow-1">
+            <main role="main" class="m-3 pb-3 ">
+                @RenderBody()
+            </main>
         </div>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="bg-primary text-white container-fluid">
             &copy; 2025 - Matrix Inc. - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

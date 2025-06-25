@@ -5,7 +5,7 @@
 
 <h1>All products</h1>
 
-<div class="d-flex justify-content-end mb-3" style="padding-right:35px;">
+<div class="m-3 d-flex justify-content-end mb-3" style="padding-right:35px;">
     <a class="btn btn-success text-white" asp-action="Create">Create New</a>
 </div>
 
@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-@foreach (var item in Model){
+    @foreach (var item in Model){
           <tr>
               <td>
                     @Html.DisplayFor(modeltem => item.Name)
@@ -42,7 +42,14 @@
                     @Html.DisplayFor(modelitem => item.Price)
               </td>
               <td>
-                    @Html.DisplayFor(modelitem => item.Visible)
+                    @if (item.Visible !=true)
+                    {
+                        <span class="badge bg-danger">Not Visible</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Visible</span>
+                    }
               </td>
                 <td>
                     <img src="@item.Image" alt="Product Image" style="width: 100px; height: auto;" />
