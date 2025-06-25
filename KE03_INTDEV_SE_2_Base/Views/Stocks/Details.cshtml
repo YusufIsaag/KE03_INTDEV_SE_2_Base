@@ -22,12 +22,8 @@
                 <div class="card-body">
                     <h3 class="card-title">@Model.Name</h3>
                     <p class="text-muted">@Model.Description</p>
-                    <p><strong>Price:</strong> @Model.Price.ToString("C", new System.Globalization.CultureInfo("nl-NL")).Replace(",00", ",-")</p>
-                    <p><strong>Visible:</strong> @(Model.Visible ? "Yes" : "No")</p>
+                    <p><strong>Price (prijs):</strong> @Model.Price.ToString("C", new System.Globalization.CultureInfo("nl-NL")).Replace(",00", ",-")</p>
 
-                    @* Optioneel: Laat het aantal gekoppelde parts of orders zien *@
-                    <p><strong>Linked Parts:</strong> @Model.Parts.Count()</p>
-                    <p><strong>Orders:</strong> @Model.Orders.Count()</p>
 
                     <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                     <a asp-action="Index" class="btn btn-secondary">Return</a>

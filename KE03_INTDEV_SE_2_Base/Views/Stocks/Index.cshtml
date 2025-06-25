@@ -15,11 +15,11 @@
                         <h5 class="card-title">@product.Name</h5>
                         <p class="card-text text-muted small">@product.Description</p>
                         <p class="mb-1">
-                            <strong>Price:</strong>
+                            <strong>Price (prijs):</strong>
                             @product.Price.ToString("C", new System.Globalization.CultureInfo("nl-NL")).Replace(",00", ",-")
                         </p>
                         <p class="mb-0">
-                            <strong>Stock:</strong>
+                            <strong>Stock (voorraad):</strong>
                             <span class="badge @((product.Stock == 0) ? "bg-danger" : (product.Stock < 10) ? "bg-warning text-dark" : "bg-success")">
                                 @product.Stock Pieces
                             </span>
