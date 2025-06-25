@@ -19,13 +19,23 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             _context = context;
         }
 
-        // GET: Customers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Customers.ToListAsync());
+            var customers = from c in _context.Customers
+                            select c;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(c =>
+                    c.Name.Contains(searchString) ||
+                    c.Address.Contains(searchString));
+            }
+
+            return View(await customers.ToListAsync());
         }
 
-        // GET: Customers/Details/5
+
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,7 +53,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Create
+        
         public IActionResult Create()
         {
             return View();
@@ -69,9 +79,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address,Active")] Customer customer, IFormFile PhotoFile)
@@ -138,7 +146,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,7 +164,7 @@ namespace KE03_INTDEV_SE_2_Base.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Delete/5
+       
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
